@@ -1,2 +1,0 @@
-sep. 11, 2016 10:49:04 AM server.EchoServer main
-INFO: Caught exception in main method: 0

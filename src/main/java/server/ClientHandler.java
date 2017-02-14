@@ -45,7 +45,7 @@ public class ClientHandler implements Runnable {
         try {
             while (true) {
                 String message = input.nextLine();
-                String[] msg = message.split(":");
+                String[] msg = message.split("#");
                 System.out.println("Received: " + message);
 
                 if (!loggedIn) {

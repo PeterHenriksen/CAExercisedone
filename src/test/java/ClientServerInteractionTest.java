@@ -4,10 +4,7 @@
  * and open the template in the editor.
  */
 
-/**
- *
- * @author jens
- */
+
 public class ClientServerInteractionTest {
     
     

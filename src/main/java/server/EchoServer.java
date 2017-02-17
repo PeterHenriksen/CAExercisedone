@@ -19,14 +19,13 @@ public class EchoServer {
     private static boolean keepRunning = true;
     private static ServerSocket serverSocket;
     private static String ip;
-  //  private static int port = 8081;
+  
 
     public static void stopServer() {
         keepRunning = false;
     }
 
     private void runServer(String ip, int port) {
-       // this.port = port;
         this.ip = ip;
 
         System.out.println("Server started. Listening on: " + port + ", bound to: " + ip);
@@ -35,7 +34,7 @@ public class EchoServer {
             serverSocket = new ServerSocket();
             serverSocket.bind(new InetSocketAddress(ip, 8081));
             do {
-                Socket socket = serverSocket.accept(); //Important Blocking call
+                Socket socket = serverSocket.accept(); 
                 System.out.println("Connected to a client");
                 ClientHandler clientHandler = ClientHandler.handle(socket, this);
                 clients.add(clientHandler);
@@ -58,7 +57,6 @@ public class EchoServer {
         try {
             Log.setLogger("logFile.txt", "ServerLog");
             ip = args[0];
-            //port = Integer.parseInt(args[1]);
             new EchoServer().runServer(ip, 8081);
         } catch (Exception e) {
             Logger.getLogger(Log.logFileName).log(Level.INFO, "Caught exception in main method: " + e.getMessage());

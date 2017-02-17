@@ -37,7 +37,7 @@ public class EchoClient {
     }
 
     public void stop() throws IOException {
-        output.println(ProtocolStrings.LOGOUT);
+        output.println(ProtocolStrings.DELETE);
     }
 
     public String receive() {

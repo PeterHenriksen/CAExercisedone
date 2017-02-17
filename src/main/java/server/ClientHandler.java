@@ -15,10 +15,7 @@ import java.util.logging.Logger;
 import shared.Log;
 import shared.ProtocolStrings;
 
-/**
- *
- * @author jens
- */
+
 public class ClientHandler implements Runnable {
 
     private final Socket socket;
@@ -58,23 +55,23 @@ public class ClientHandler implements Runnable {
 
                     switch (msg[0]) {
                         case "MSG":
-                            if (msg[0].equals(ProtocolStrings.MSG) && (msg[1].equals(""))) {
+                            if (msg[0].equals(ProtocolStrings.MSG) && (msg[1].equals("ALL"))) {
                                 server.sendMulticast(ProtocolStrings.MSGRES + msg[2]);
                             } else {
-                                String[] users = msg[1].split(",");
+                                String[] users = msg[1].split("#");
                                 for (ClientHandler client : server.getClientHandlers()) {
                                     for (String user : users) {
                                         if (client.getName().equals(user)) {
-                                            client.sendMessage(ProtocolStrings.MSGRES + msg[2]);
+                                            client.sendMessage(ProtocolStrings.MSGRES + this.name + "#" + msg[2]);
                                         }
                                     }
                                 }
                             }
                             break;
-                        case "LOGOUT":
-                            if (msg[0].equals(ProtocolStrings.LOGOUT)) {
+                        case "DELETE":
+                            if (msg[0].equals(ProtocolStrings.DELETE)) {
                                 try {
-                                    writer.println(ProtocolStrings.LOGOUT);//Echo the stop message back to the client for a nice closedown
+                                    writer.println(ProtocolStrings.DELETE);//Echo the stop message back to the client for a nice closedown
                                     socket.close();
 
                                 } catch (IOException ex) {
@@ -93,7 +90,7 @@ public class ClientHandler implements Runnable {
 
         } finally {
             try {
-                writer.println(ProtocolStrings.LOGOUT);//Echo the stop message back to the client for a nice closedown
+                writer.println(ProtocolStrings.DELETE);//Echo the stop message back to the client for a nice closedown
                 socket.close();
                 server.removeHandler(this);
                 printClientList();
@@ -118,8 +115,8 @@ public class ClientHandler implements Runnable {
                 clientList.add(c.getName());
             }
         }
-
-        server.sendMulticast("CLIENTLIST:" + String.join(",", clientList));
+        
+        server.sendMulticast("OK#" + String.join("#", clientList));
     }
 
     public String getName() {

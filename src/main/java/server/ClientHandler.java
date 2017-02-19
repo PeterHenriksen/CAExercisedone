@@ -56,13 +56,13 @@ public class ClientHandler implements Runnable {
                     switch (msg[0]) {
                         case "MSG":
                             if (msg[0].equals(ProtocolStrings.MSG) && (msg[1].equals("ALL"))) {
-                                server.sendMulticast(ProtocolStrings.MSGRES + msg[2]);
+                                server.sendMulticast(ProtocolStrings.MSG + msg[2]);
                             } else {
                                 String[] users = msg[1].split("#");
                                 for (ClientHandler client : server.getClientHandlers()) {
                                     for (String user : users) {
                                         if (client.getName().equals(user)) {
-                                            client.sendMessage(ProtocolStrings.MSGRES + this.name + "#" + msg[2]);
+                                            client.sendMessage(ProtocolStrings.MSG + "#" + this.name + "#" + msg[2]);
                                         }
                                     }
                                 }

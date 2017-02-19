@@ -43,7 +43,7 @@ public class EchoClient {
     public String receive() {
         String msg = input.nextLine();
         String[] cmd = msg.split("#");
-        if (cmd[0].equals(ProtocolStrings.MSGRES) || cmd[0].equals(ProtocolStrings.CLIENTLIST)) {
+        if (cmd[0].equals(ProtocolStrings.MSG) || cmd[0].equals(ProtocolStrings.CLIENTLIST)) {
             return msg;
 
         } else {
